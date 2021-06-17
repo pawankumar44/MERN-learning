@@ -30,14 +30,34 @@ function App() {
 
     //delete a task
     const deleteTask = (id) =>{
-      console.log('delete',id)
+      //delete task
+      setTasks(tasks.filter(
+        (task)=>task.id !== id
+      ))
+    }
+
+    //toggle reminder
+    const togglerReminder =(id) =>{
+      // 1st we change boolean value of the clicked task
+      setTasks(
+        tasks.map((task)=>task.id === id ? {
+          ...task,reminder:!task.reminder
+        }:task)
+      )
+
     }
 
   return (
     <div className="container">
       {/* embed header from custom header function */}
+
       <Header title='Task Tracker'/>
-      <Task tasks={tasks} onDelete={deleteTask}/>
+
+      {tasks.length>0 ?
+      (<Task tasks={tasks}
+        onToggle={togglerReminder} onDelete={deleteTask}/>)
+      :('No Task')}
+      
     </div>
   );
 }

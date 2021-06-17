@@ -1,5 +1,5 @@
 //to use state inside function we hook called useState
-import { useState } from "react"
+
 import EachTask from "./EachTask"
 
 
@@ -26,13 +26,14 @@ import EachTask from "./EachTask"
 //     },
 // ]
 
-const Task = ({tasks,onDelete}) => {
+const Task = ({tasks,onDelete,onToggle}) => {
 
     return (
         <>
         {/* each task from tasks is task */}
         {tasks.map((task)=>(
-            <EachTask key={task.id} eachTask={task} onDelete={onDelete} />
+            <EachTask key={task.id}
+            onToggle={onToggle} eachTask={task} onDelete={onDelete} />
         ))}
         </>
     )

@@ -1,12 +1,14 @@
 //to import icons from react
-import { Color } from 'chalk'
-import {FaTimes, faTimes} from 'react-icons/fa'
+import {FaTimes} from 'react-icons/fa'
 
-const EachTask = ({eachTask,onDelete}) => {
+
+const EachTask = ({eachTask,onDelete,onToggle}) => {
     
     return (
-        <div className="task">
-            <h3>{eachTask.text}
+        //change style as per reminder boolean value
+        <div className={`task ${eachTask.reminder ? 'reminder':''}`}
+         onDoubleClick={()=>onToggle(eachTask.id)}>
+            <h3 >{eachTask.text}
             <FaTimes
             onClick={()=>onDelete(eachTask.id)}
              style={{color:'red',cursor:'pointer'}}/>
