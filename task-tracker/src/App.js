@@ -28,11 +28,16 @@ function App() {
     },
     ])
 
+    //delete a task
+    const deleteTask = (id) =>{
+      console.log('delete',id)
+    }
+
   return (
     <div className="container">
       {/* embed header from custom header function */}
-      <Header title='Task Tracker'tasks={tasks}/>
-      <Task/>
+      <Header title='Task Tracker'/>
+      <Task tasks={tasks} onDelete={deleteTask}/>
     </div>
   );
 }
