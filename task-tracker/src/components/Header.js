@@ -6,19 +6,16 @@ import Button from './Button'
 
 
 //creation of component
-const Header = ({title}) => {
-    const onAddClick = ()=>{
-        console.log('add')
-    }
+const Header = ({title,showAdd,changeAddButton }) => {
     return (
         <header className='header'>
 
             {/* double curly brackets for inline css */}
             <h1>{title}</h1>
 
-            <Button backgroundColor='green'
-            onClick={onAddClick}
-             text='Add Now'
+            <Button backgroundColor={changeAddButton ? 'red':'green'}
+            onClick={showAdd}
+             text={changeAddButton ? 'Close':'Add'}
             />
             
 

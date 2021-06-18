@@ -8,6 +8,9 @@ import  AddTask  from "./components/AddTask";
 //by using function 
 function App() {
 
+  //to toggle Add task form
+  const[showAddTask,setShowAddTask] = useState(false)
+
   const [tasks,setTasks] = useState([
     {
         id:1,
@@ -61,9 +64,12 @@ function App() {
     <div className="container">
       {/* embed header from custom header function */}
 
-      <Header title='Task Tracker'/>
+      <Header
+      changeAddButton={showAddTask}
+       showAdd={()=>setShowAddTask(!showAddTask)} title='Task Tracker'/>
 
-      <AddTask addTask={addTask} />
+      {/* show add task form according to its visibility */}
+      {showAddTask && <AddTask addTask={addTask} />}
 
       {tasks.length>0 ?
       (<Task tasks={tasks}
