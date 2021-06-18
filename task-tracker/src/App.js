@@ -53,17 +53,40 @@ function App() {
   }
 
     //Add Task
-    const addTask = (task) =>{
-      //need to generate id because we are not dealing with backend here
-      const id = Math.floor(Math.random()*1000)+1
-      //preparing new task to add
-      const newTask = {id,...task} //...task will copy the remaining from parameter
-      setTasks([...tasks,newTask])
+    const addTask = async (task) =>{
+      // const id = Math.floor(Math.random()*1000)+1
+      const id = tasks.length+1
+      const newTask = {id,...task}
+      //persistenly add data in json file
+      const res = await fetch('http://localhost:5000/tasks',
+      {
+      method:'POST',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body: JSON.stringify(newTask),
+      }
+      )
+
+      const data = await res.json() // new data
+      setTasks([...tasks,data])
+
+
+      // //need to generate id because we are not dealing with backend here
+      // const id = Math.floor(Math.random()*1000)+1
+      // //preparing new task to add
+      // const newTask = {id,...task} //...task will copy the remaining from parameter
+      // setTasks([...tasks,newTask])
     }
 
     //delete a task
-    const deleteTask = (id) =>{
-      //delete task
+    const deleteTask = async (id) =>{
+      //this will delete from json permanently
+      await fetch(`http://localhost:5000/tasks/${id}`,
+      {
+        method:'DELETE'
+      })
+
       setTasks(tasks.filter(
         (task)=>task.id !== id
       ))
@@ -114,3 +137,28 @@ function App() {
 // } 
 
 export default App;
+
+
+////just json data
+// {
+//   "tasks": [
+//     {
+//         "id":1,
+//         "text":"Doctors Appointment",
+//         "day": "feb 5th at 2:30pm",
+//         "reminder": true
+//     },
+//     {
+//         "id":2,
+//         "text":"Meeting at school",
+//         "day": "feb 5th at 2:30pm",
+//         "reminder": true
+//     },
+//     {
+//         "id":3,
+//         "text":"Food Shopping",
+//         "day": "feb 5th at 2:30pm",
+//         "reminder": false
+//     }
+//   ]
+// }
