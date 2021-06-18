@@ -3,6 +3,7 @@ import React from "react";
 import Task from "./components/Tasks";
 //to use state inside function we hook called useState
 import { useState } from "react"
+import  AddTask  from "./components/AddTask";
 
 //by using function 
 function App() {
@@ -28,6 +29,15 @@ function App() {
     },
     ])
 
+    //Add Task
+    const addTask = (task) =>{
+      //need to generate id because we are not dealing with backend here
+      const id = Math.floor(Math.random()*1000)+1
+      //preparing new task to add
+      const newTask = {id,...task} //...task will copy the remaining from parameter
+      setTasks([...tasks,newTask])
+    }
+
     //delete a task
     const deleteTask = (id) =>{
       //delete task
@@ -52,6 +62,8 @@ function App() {
       {/* embed header from custom header function */}
 
       <Header title='Task Tracker'/>
+
+      <AddTask addTask={addTask} />
 
       {tasks.length>0 ?
       (<Task tasks={tasks}
