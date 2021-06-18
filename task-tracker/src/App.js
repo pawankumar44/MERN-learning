@@ -39,23 +39,29 @@ function App() {
   //get tasks list from mock api
   useEffect(()=>{
     const getTasks = async () => {
-      const taskFromServer = await fetchTask()
+      const taskFromServer = await fetchTasks()
       setTasks(taskFromServer)
     }
     getTasks()
   },[])// [] dependency array used to pass own value
 
   //fetch tasks from api
-  const fetchTask = async () => {
+  const fetchTasks = async () => {
     const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+    return data
+  }
+
+  //fetch single task for toggle reminder persistently
+  const fetchTask = async (id) => {
+    const res = await fetch(`http://localhost:5000/tasks/${id}`)
     const data = await res.json()
     return data
   }
 
     //Add Task
     const addTask = async (task) =>{
-      // const id = Math.floor(Math.random()*1000)+1
-      const id = tasks.length+1
+      const id = Math.floor(Math.random()*1000)+1
       const newTask = {id,...task}
       //persistenly add data in json file
       const res = await fetch('http://localhost:5000/tasks',
@@ -93,13 +99,37 @@ function App() {
     }
 
     //toggle reminder
-    const togglerReminder =(id) =>{
-      // 1st we change boolean value of the clicked task
+    const togglerReminder = async(id) =>{
+      //persistently toggle in json file
+      const taskToToggle = await fetchTask(id)
+      const updateTask = {...taskToToggle,
+      reminder:!taskToToggle.reminder}
+
+      //now update in json file
+      const res = await fetch(`http://localhost:5000/tasks/${id}`,{
+        method:'PUT',//PUT for updating
+        headers:{
+          'Content-type':'application/json'
+        },
+        body: JSON.stringify(updateTask)
+      })
+
+      //send response
+      const data = await res.json()
+
       setTasks(
         tasks.map((task)=>task.id === id ? {
-          ...task,reminder:!task.reminder
+          ...task,reminder:data.reminder
         }:task)
       )
+
+      // //this below is to change only in design
+      // // 1st we change boolean value of the clicked task
+      // setTasks(
+      //   tasks.map((task)=>task.id === id ? {
+      //     ...task,reminder:!task.reminder
+      //   }:task)
+      // )
 
     }
 
