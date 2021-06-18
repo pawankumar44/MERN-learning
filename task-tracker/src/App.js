@@ -2,7 +2,8 @@ import Header from "./components/Header"; //importing custom header
 import React from "react";
 import Task from "./components/Tasks";
 //to use state inside function we hook called useState
-import { useState } from "react"
+//useEffect do something when page load
+import { useState,useEffect } from "react"
 import  AddTask  from "./components/AddTask";
 
 //by using function 
@@ -11,26 +12,45 @@ function App() {
   //to toggle Add task form
   const[showAddTask,setShowAddTask] = useState(false)
 
-  const [tasks,setTasks] = useState([
-    {
-        id:1,
-        text:'Doctors Appointment',
-        day: 'feb 5th at 2:30pm',
-        reminder: true,
-    },
-    {
-        id:2,
-        text:'Meeting at school',
-        day: 'feb 5th at 2:30pm',
-        reminder: true,
-    },
-    {
-        id:3,
-        text:'Food Shopping',
-        day: 'feb 5th at 2:30pm',
-        reminder: false,
-    },
+    const [tasks,setTasks] = useState([
     ])
+
+  // const [tasks,setTasks] = useState([
+  //   {
+  //       id:1,
+  //       text:'Doctors Appointment',
+  //       day: 'feb 5th at 2:30pm',
+  //       reminder: true,
+  //   },
+  //   {
+  //       id:2,
+  //       text:'Meeting at school',
+  //       day: 'feb 5th at 2:30pm',
+  //       reminder: true,
+  //   },
+  //   {
+  //       id:3,
+  //       text:'Food Shopping',
+  //       day: 'feb 5th at 2:30pm',
+  //       reminder: false,
+  //   },
+  //   ])
+
+  //get tasks list from mock api
+  useEffect(()=>{
+    const getTasks = async () => {
+      const taskFromServer = await fetchTask()
+      setTasks(taskFromServer)
+    }
+    getTasks()
+  },[])// [] dependency array used to pass own value
+
+  //fetch tasks from api
+  const fetchTask = async () => {
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+    return data
+  }
 
     //Add Task
     const addTask = (task) =>{
