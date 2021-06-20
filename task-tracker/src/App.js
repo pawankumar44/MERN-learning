@@ -5,6 +5,9 @@ import Task from "./components/Tasks";
 //useEffect do something when page load
 import { useState,useEffect } from "react"
 import  AddTask  from "./components/AddTask";
+import Footer from "./components/Footer";
+import About from "./components/About";
+import {BrowserRouter as Router,Route} from "react-router-dom"; //browser router which uses html5 pushed state
 
 //by using function 
 function App() {
@@ -134,10 +137,13 @@ function App() {
     }
 
   return (
+    <Router>
     <div className="container">
       {/* embed header from custom header function */}
 
-      <Header
+      <Route path='/' exact render={(props) => (
+        <>
+        <Header
       changeAddButton={showAddTask}
        showAdd={()=>setShowAddTask(!showAddTask)} title='Task Tracker'/>
 
@@ -148,8 +154,16 @@ function App() {
       (<Task tasks={tasks}
         onToggle={togglerReminder} onDelete={deleteTask}/>)
       :('No Task')}
+        </>
+      )}/>
       
+      <Route path='/about' component={About} />
+
+
+      <Footer/>
+
     </div>
+    </Router>
   );
 }
 
