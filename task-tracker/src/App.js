@@ -141,11 +141,12 @@ function App() {
     <div className="container">
       {/* embed header from custom header function */}
 
-      <Route path='/' exact render={(props) => (
-        <>
-        <Header
+      <Header
       changeAddButton={showAddTask}
        showAdd={()=>setShowAddTask(!showAddTask)} title='Task Tracker'/>
+
+      <Route path='/' exact render={(props) => (
+        <>
 
       {/* show add task form according to its visibility */}
       {showAddTask && <AddTask addTask={addTask} />}
