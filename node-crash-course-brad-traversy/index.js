@@ -7,5 +7,5 @@ const Car = require('./person');//importing class from another file.
 // console.log(myPerson.name);
 
 //importing class from another file.
-const myCar = new Car('BMW','sports'); //class instantiating
+const myCar = new Car('BMW','sports'); //this is class instantiating
 myCar.tagline();
