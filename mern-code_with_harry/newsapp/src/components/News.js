@@ -17,8 +17,8 @@ export class News extends Component {
 
   async updateNews (pageNo) {
     this.setState({loading: true})
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3c051c5735e94025b86d5805a2c01750&page=${pageNo}&pageSize=${this.props.pageSize}`;
-    // const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3c051c5735e94025b86d5805a2c01750&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${pageNo}&pageSize=${this.props.pageSize}`;
+    // const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
@@ -30,7 +30,7 @@ export class News extends Component {
   async componentDidMount() {
     console.log("componentdid mount working");
     this.setState({loading: true})
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3c051c5735e94025b86d5805a2c01750&page=1&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
@@ -42,8 +42,8 @@ export class News extends Component {
   fetchMoreData = async () =>{
     this.setState({page: this.state.page+1})
     // this.setState({loading: true})
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3c051c5735e94025b86d5805a2c01750&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-    // const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3c051c5735e94025b86d5805a2c01750&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    // const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
@@ -56,7 +56,7 @@ export class News extends Component {
   handlePrev = async () => {
     console.log("prev")
     // this.setState({loading: true})
-    // let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3c051c5735e94025b86d5805a2c01750&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+    // let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
     // let data = await fetch(url);
     // let parsedData = await data.json();
     // console.log(parsedData);
@@ -78,7 +78,7 @@ export class News extends Component {
     // }
     // else {
     //   this.setState({loading: true})
-    //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3c051c5735e94025b86d5805a2c01750&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+    //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
     //   let data = await fetch(url);
     //   let parsedData = await data.json();
     //   console.log(parsedData);
