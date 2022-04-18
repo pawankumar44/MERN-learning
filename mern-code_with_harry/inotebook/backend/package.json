@@ -4,12 +4,16 @@
   "description": "your inotebook on the cloud",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3",
     "mongoose": "^6.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
