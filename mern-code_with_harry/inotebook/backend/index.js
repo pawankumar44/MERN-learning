@@ -6,6 +6,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+app.use(express.json());//middleware : if we want to use request.body
 
 //available routes 
 //we link routes
