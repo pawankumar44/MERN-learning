@@ -4,13 +4,14 @@ const User = require("../mongoose_models/User")
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fetchUser = require('../middleware/fetchUser')
 
 
 //jwt authentication
 const JWT_SECRET = "Pawanisalazy$guy";//use this to sign jwt
 
 
-//create a User using : POST by endpoint "/api/auth". Doesn't require auth . No login required
+//ROUTE:1 create a User using : POST by endpoint "/api/auth". Doesn't require auth . No login required
 router.post('/createuser',[
     body("email","Enter a valid email").isEmail(),
     body('name').isLength({ min: 5 }),
@@ -64,7 +65,7 @@ router.post('/createuser',[
     
 })
 
-//Authenticate a User using : POST by endpoint "/api/auth/login". No login required
+//ROUTE2: Authenticate a User using : POST by endpoint "/api/auth/login". No login required
 router.post('/login',[
     body("email","Enter a valid email").isEmail(),
     body("password","Password can\'t be string").exists(),
@@ -101,6 +102,19 @@ router.post('/login',[
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     } 
+})
+
+//ROUTE3: get loggedin user Details using : POST by endpoint "/api/auth/getuser". login required
+
+router.post('/getuser',fetchUser ,async (req,res)=>{
+try {
+    userid = req.user.id;
+    // console.log(userid);
+    const user = await User.findById(userid).select("-password");//select everything from the id reference except the password
+    res.send(user)
+} catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");}
 })
 
 
