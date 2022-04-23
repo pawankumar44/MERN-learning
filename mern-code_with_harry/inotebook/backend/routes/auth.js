@@ -64,4 +64,44 @@ router.post('/createuser',[
     
 })
 
+//Authenticate a User using : POST by endpoint "/api/auth/login". No login required
+router.post('/login',[
+    body("email","Enter a valid email").isEmail(),
+    body("password","Password can\'t be string").exists(),
+], async (req,res)=>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    //extract email and password through destructuring
+    const {email,password} = req.body;
+    try {
+        //check whether credentials exists or not 
+        let user = await User.findOne({email});
+        if(!user){
+            return res.status(400).json({error: "Please try to login with correct credentials"});
+        }
+
+        //compare whether the password is correct or not ,user.password = password stored in the db
+        const passwordCompare  = await bcrypt.compare(password,user.password);
+        if(!passwordCompare){
+            return res.status(400).json({error: "Please try to login with correct credentials"});
+        }
+        else {
+            //if everything fine then we will send the payload(data of user)
+        const data = {
+            user : {
+                id : user.id
+            }
+        }
+        const authToken = jwt.sign(data,JWT_SECRET);
+        res.json({authToken})
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    } 
+})
+
+
 module.exports = router
