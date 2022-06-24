@@ -1,7 +1,9 @@
 import React from 'react'
 
 export default function SignUp() {
+
     return (
+        <>
         <form>
             <label>
                 Name:
@@ -20,5 +22,8 @@ export default function SignUp() {
             <br /><br />
             <input type="submit" value="Submit" />
         </form>
+        <br /><br /><br />
+        <input type="submit" value="Login if already account"></input>
+        </>
     )
 }
