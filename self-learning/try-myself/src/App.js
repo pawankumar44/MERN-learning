@@ -10,15 +10,21 @@ import {
   // Link,
   BrowserRouter
 } from "react-router-dom";
+import Checklog from './components/Checklog';
+
 
 function App() {
+  var i = false
   return (
     // <Login></Login>
     // <SignUp></SignUp>
     // <Content></Content>
     <BrowserRouter>
       <Routes>
-        <Route index path="/" element={
+      <Route path="/checklog" element={
+          <Checklog val={i}></Checklog>
+        } />
+        <Route index path="/signup" element={
           <SignUp></SignUp>
         } />
         <Route path="login" element={

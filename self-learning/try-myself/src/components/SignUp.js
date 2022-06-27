@@ -1,7 +1,9 @@
 import React from 'react'
+import {useNavigate} from 'react-router-dom'
 
 export default function SignUp() {
-
+//invoke the navigator hook
+const navigate = useNavigate();
     return (
         <>
         <form>
@@ -23,7 +25,8 @@ export default function SignUp() {
             <input type="submit" value="Submit" />
         </form>
         <br /><br /><br />
-        <input type="submit" value="Login if already account"></input>
+        <button type="button"
+        onClick={() => navigate('../login')} name="alreadyLogged" value="">Already logged in</button>
         </>
     )
 }
