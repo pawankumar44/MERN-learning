@@ -1,9 +1,16 @@
 const express = require('express')
 const dotenv = require('dotenv') // to use env file
 const {chats} = require('./data/data')
+const connectDB = require('./config/db')
+
+
+dotenv.config();
+
+//connect to database below .env config
+connectDB()
 
 const app = express()
-dotenv.config();
+
 app.get('/', function (req, res) {
   res.send('Hello Worldd')
 })
