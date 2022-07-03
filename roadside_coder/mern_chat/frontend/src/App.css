@@ -1,0 +1,10 @@
+/* importing a font */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+
+.App{
+    min-height: 100vh;
+    display: flex;
+    background-image: url(../assets/images/work-chat-concept-illustration/3350441.jpg);
+    background-size: cover;
+    background-position: center;
+}
