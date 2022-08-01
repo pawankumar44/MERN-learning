@@ -1,0 +1,17 @@
+g
+pawan@LAPTOP-454VCAHL MINGW64 /c/mine/MERN-learning (main)
+$ git remote show origin
+* remote origin
+  Fetch URL: https://onlinecourse44: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@github.com/onlinecourse44/ds-algo-compet.git
+  Push  URL: https://onlinecourse44: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@github.com/onlinecourse44/ds-algo-compet.git
+  HEAD branch: main
+  Remote branches:
+    main                         tracked
+    refs/remotes/origin/gh-pages stale (use 'git remote prune' to remove)
+  Local branch configured for 'git pull':
+    main merges with remote main
+  Local ref configured for 'git push':
+    main pushes to main (local out of date)
+
+___________________________________________________________
+git remote set-url https://github.com/onlinecourse44/MERN-learning.git

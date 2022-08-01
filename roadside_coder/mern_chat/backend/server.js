@@ -12,6 +12,8 @@ connectDB()
 
 const app = express()
 
+app.use(express.json());//tell server to accept the json data
+
 app.get('/', function (req, res) {
   res.send('API running successfully')
 })
