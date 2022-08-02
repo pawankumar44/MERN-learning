@@ -8,7 +8,9 @@ const SignUp = () => {
     const [email, setEmail] = useState()
     const [confirmPassword, setConfirmPassword] = useState()
     const [password, setPassword] = useState()
-    const [pic, setPic] = useState()
+    const [pic, setPic] = useState()//we will use cloudinary for saving images
+    //loading state
+    const [loading,setLoading] = useState(false)
 
     const postDetails = (pics) => {}
 

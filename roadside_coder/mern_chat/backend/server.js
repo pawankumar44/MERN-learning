@@ -3,6 +3,7 @@ const dotenv = require('dotenv') // to use env file
 const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const userRoutes = require('./routes/userRoutes')
+const {errorHandler,notFound} = require("../backend/middlewares/errorMiddleware")
 
 
 dotenv.config();
@@ -31,6 +32,13 @@ app.get('/', function (req, res) {
 
 //making endpoint for users
 app.use('/api/user',userRoutes)//all further work done from userRoutes module
+
+//error handling middleware
+//for not found url
+app.use(notFound)
+
+//normal error handler
+app.use(errorHandler)
 
 
 const PORT = process.env.PORT || 5000
