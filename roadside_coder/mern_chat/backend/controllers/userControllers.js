@@ -41,6 +41,26 @@ const registerUser = asyncHandler(async (req,res)=> {
     }
 })
 
+//login function
+const authUser = asyncHandler(async(req,res) => {
+    const {email,password} = req.body;
+    //find user if it exists in database or not
+    const user = await User.findOne({email});
+    if(user && (await user.matchPassword(password)) ){
+        res.status(201).json({
+            _id:user._id,
+            name: user.name,
+            email: user.email,
+            pic: user.pic,
+            token: generateToken(user._id),
+        })
+    }
+    else{
+        res.status(401);
+        throw new Error("Invalid credentials");
+    }
+})
+
 //export the function. 
 //this will not be gonna default export
-module.exports = {registerUser}
+module.exports = {registerUser,authUser}
