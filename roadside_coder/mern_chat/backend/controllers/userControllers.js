@@ -61,6 +61,26 @@ const authUser = asyncHandler(async(req,res) => {
     }
 })
 
+//get all user api
+// /api/user?search=finix
+const allUsers = asyncHandler(async (req,res) => {
+    //if there is query then search
+    const keyword = req.query.search ? {
+        //if there is any query
+        $or:[
+            //we are searching either inside of the name or inside email
+            {name: {$regex: req.query.search, $options: "i"}},
+            {email: {$regex: req.query.search, $options: "i"}},
+        ]
+    }:{};//else we are not gonna do anything 
+    
+    //provide it to query on mongodb
+    //query the database and search except the current user
+    //we need authorization middleware to get current user id
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } })//$ne = not equal in mongodb
+    res.send(users)
+})
+
 //export the function. 
 //this will not be gonna default export
-module.exports = {registerUser,authUser}
+module.exports = {registerUser,authUser,allUsers}
