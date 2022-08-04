@@ -32,6 +32,7 @@ app.get('/', function (req, res) {
 
 //making endpoint for users
 app.use('/api/user',userRoutes)//all further work done from userRoutes module
+app.use('/api/chat',chatRoutes)
 
 //error handling middleware
 //for not found url
