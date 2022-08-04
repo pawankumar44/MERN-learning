@@ -3,6 +3,7 @@ const dotenv = require('dotenv') // to use env file
 const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const userRoutes = require('./routes/userRoutes')
+const chatRoutes = require('./routes/chatRoutes')
 const {errorHandler,notFound} = require("../backend/middlewares/errorMiddleware")
 
 
