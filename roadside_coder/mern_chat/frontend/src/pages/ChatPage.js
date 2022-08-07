@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import ChatProvider, { ChatState } from '../Context/ChatProvider'
+import { Box } from '@chakra-ui/react'
+import SideDrawer from '../components/miscellaneous/SideDrawer'
+import MyChats from '../components/MyChats'
+import ChatBox from '../components/ChatBox'
 
-function ChatPage() {
+const ChatPage = () => {
 
   //   //we store data in state
   //   //creating state for chats with initial value [] array
@@ -22,14 +27,21 @@ function ChatPage() {
   // }, [])
   
   //take user state from context api
+  //destructure user state from inside 
+  const {user} = ChatState()
 
   return (
     //we use {} to wirte js inside react.js
-    <div>
-
+    <div style={{width:"100%"}}>
         {/* {chats.map((chat)=>(
            <div key={chat._id}>{chat.chatName}</div> 
         ))} */}
+        {user && <SideDrawer/>}
+        <Box d="flex" justifyContent="space-between" w="100%" h="91.5vh"
+        p="10px">
+          {user && <MyChats/>}
+          {user && <ChatBox/>}
+          </Box>
     </div>
   )
 }

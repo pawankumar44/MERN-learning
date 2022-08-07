@@ -10,7 +10,7 @@ const ChatProvider = ({children}) => {
     const [user, setUser] = useState()
     const navigate = useNavigate()
 
-    //fetch our local storage
+    // fetch our local storage
     useEffect(()=>{
         const userInfo = JSON.parse(localStorage.getItem("userInfo"))
         setUser(userInfo)
@@ -18,9 +18,10 @@ const ChatProvider = ({children}) => {
             navigate("/")
         }
     },[navigate])//whenever navigate changes it will run again
-    return 
+    return (
         <ChatContext.Provider
         value={{user,setUser}}>{children}</ChatContext.Provider>
+        )
     
 }
 
