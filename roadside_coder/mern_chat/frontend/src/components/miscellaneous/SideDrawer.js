@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import {baseUrl} from '../../global_varibale_function/gloabl_varibale'
 import axios from 'axios'
 import ChatLoading from '../ChatLoading'
+import UserListItem from '../user_avatar/UserListItem'
 
 const SideDrawer = () => {
   const [search, setSearch] = useState("")
@@ -41,6 +42,8 @@ const SideDrawer = () => {
         }
       }
       const {data} = await axios.get(`${baseUrl}/api/user?search=${search}`,config)
+      setSearchResult(data)
+      // console.log({searchResult})
       setLoading(false)
     } catch (error) {
       toast({
@@ -54,6 +57,10 @@ const SideDrawer = () => {
       return
       setLoading(false)
     }
+  }
+
+  const accessChat = (userId) => {
+
   }
 
   return (
@@ -113,7 +120,14 @@ const SideDrawer = () => {
             onChange={(e)=>setSearch(e.target.value)}/>
             <Button onClick={handleSearch} >Go</Button>
             </Flex>
-            {loading?(<ChatLoading/>):(<span>results</span>)}
+            {loading?(<ChatLoading/>):
+            //? check if anything inside searchResult
+            (searchResult?.map(user=>(
+              <UserListItem
+              key={user._id}
+              user = {user}
+              handleFunction = {()=>accessChat(user._id)}/>
+            )))}
         </DrawerBody>
       </DrawerContent>
     </Drawer>
