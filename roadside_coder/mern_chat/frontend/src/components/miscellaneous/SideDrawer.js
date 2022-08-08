@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Avatar, Box, Button, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip } from '@chakra-ui/react'
+import { Avatar, Box, Button, Drawer, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, useDisclosure } from '@chakra-ui/react'
 import { ChatState } from '../../Context/ChatProvider'
 import ProfileModal from './ProfileModal'
 import { useNavigate } from 'react-router-dom'
@@ -11,6 +11,7 @@ const SideDrawer = () => {
   const [loadingChat, setLoadingChat] = useState()
   const {user} = ChatState()
   const navigate = useNavigate()
+  const {isOpen, onOpen, onClose } = useDisclosure()//for side drawer
 
   const logoutHandler = () => {
     localStorage.removeItem("userInfo")
@@ -31,7 +32,7 @@ const SideDrawer = () => {
       <Flex justifyContent="space-between">
       <Tooltip label="Search Users to Chat" hasArrow
        placement='bottom-end'>
-        <Button variant="ghost">
+        <Button variant="ghost" onClick={onOpen}>
         <i class="fa-solid fa-magnifying-glass"></i>
         <Text d={{base:"none",md:"flex"}} px='4'>Search User</Text>
         </Button>
@@ -60,8 +61,15 @@ const SideDrawer = () => {
         </Menu>
        </div>
       </Flex>
-      
     </Box>
+    <Drawer placement='left' onClose={onClose} isOpen={isOpen}>
+      <DrawerOverlay/>
+      <DrawerContent>
+        <DrawerContent>
+          <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
+        </DrawerContent>
+      </DrawerContent>
+    </Drawer>
     </>
   )
 }
