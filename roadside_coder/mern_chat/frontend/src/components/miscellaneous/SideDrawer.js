@@ -1,8 +1,11 @@
 import React,{useState} from 'react'
-import { Avatar, Box, Button, Drawer, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, useDisclosure } from '@chakra-ui/react'
+import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
 import { ChatState } from '../../Context/ChatProvider'
 import ProfileModal from './ProfileModal'
 import { useNavigate } from 'react-router-dom'
+import {baseUrl} from '../../global_varibale_function/gloabl_varibale'
+import axios from 'axios'
+import ChatLoading from '../ChatLoading'
 
 const SideDrawer = () => {
   const [search, setSearch] = useState("")
@@ -12,10 +15,45 @@ const SideDrawer = () => {
   const {user} = ChatState()
   const navigate = useNavigate()
   const {isOpen, onOpen, onClose } = useDisclosure()//for side drawer
+  const toast = useToast()
 
   const logoutHandler = () => {
     localStorage.removeItem("userInfo")
     navigate("/")
+  }
+
+  const handleSearch = async() => {
+    if(!search){
+      toast({
+        title: 'Please Enter something in search',
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+        position:"top-left"
+      })
+      return
+    }
+    try {
+      setLoading(true)
+      const config = {
+        headers:{
+          Authorization: `Bearer ${user.token}`
+        }
+      }
+      const {data} = await axios.get(`${baseUrl}/api/user?search=${search}`,config)
+      setLoading(false)
+    } catch (error) {
+      toast({
+        title: 'Error Occured!',
+        description: "Failed to Load the search results",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position:"bottom-left"
+      })
+      return
+      setLoading(false)
+    }
   }
 
   return (
@@ -65,9 +103,18 @@ const SideDrawer = () => {
     <Drawer placement='left' onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay/>
       <DrawerContent>
-        <DrawerContent>
           <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
-        </DrawerContent>
+        <DrawerBody>
+          <Flex>
+            <Input
+            placeholder='Search by name or email'
+            mr={2}
+            value={search}
+            onChange={(e)=>setSearch(e.target.value)}/>
+            <Button onClick={handleSearch} >Go</Button>
+            </Flex>
+            {loading?(<ChatLoading/>):(<span>results</span>)}
+        </DrawerBody>
       </DrawerContent>
     </Drawer>
     </>
