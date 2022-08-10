@@ -8,6 +8,8 @@ const ChatContext = createContext()
 //so that whatever state inside of context api can be accessible by whole of app
 const ChatProvider = ({children}) => {
     const [user, setUser] = useState()
+    const [selectedChat, setSelectedChat] = useState()
+    const [chats, setChats] = useState()//to populate current chat in chat state
     const navigate = useNavigate()
 
     // fetch our local storage
@@ -20,7 +22,7 @@ const ChatProvider = ({children}) => {
     },[navigate])//whenever navigate changes it will run again
     return (
         <ChatContext.Provider
-        value={{user,setUser}}>{children}</ChatContext.Provider>
+        value={{user,setUser,selectedChat,setSelectedChat,chats,setChats}}>{children}</ChatContext.Provider>
         )
     
 }

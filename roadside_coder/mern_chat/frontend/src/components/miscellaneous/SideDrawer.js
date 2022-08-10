@@ -13,7 +13,7 @@ const SideDrawer = () => {
   const [searchResult, setSearchResult] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadingChat, setLoadingChat] = useState()
-  const {user} = ChatState()
+  const {user,setSelectedChat,chats,setChats} = ChatState()
   const navigate = useNavigate()
   const {isOpen, onOpen, onClose } = useDisclosure()//for side drawer
   const toast = useToast()
@@ -54,13 +54,35 @@ const SideDrawer = () => {
         isClosable: true,
         position:"bottom-left"
       })
-      return
       setLoading(false)
+      return
     }
   }
 
-  const accessChat = (userId) => {
-
+  const accessChat = async (userId) => {
+    try {
+      setLoadingChat(true)
+      const config = {
+        headers: {
+          "Content-type": "application/json"
+          Authorization: `Bearer ${user.token}`,
+        }
+      }
+      const {data} = await axios.post(`${baseUrl}/api/chat`,{userId},config)
+      setSelectedChat(data)
+      setLoading(false)
+      onClose()//close the drawer
+    } catch (error) {
+      toast({
+        title: 'Error Occured!',
+        description: error.message,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position:"bottom-left"
+      })
+      setLoading(false)
+    }
   }
 
   return (
