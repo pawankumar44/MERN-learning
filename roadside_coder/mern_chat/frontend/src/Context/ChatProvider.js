@@ -9,7 +9,7 @@ const ChatContext = createContext()
 const ChatProvider = ({children}) => {
     const [user, setUser] = useState()
     const [selectedChat, setSelectedChat] = useState()
-    const [chats, setChats] = useState()//to populate current chat in chat state
+    const [chats, setChats] = useState([])//to populate current chat in chat state,[] is used for safety purose for error
     const navigate = useNavigate()
 
     // fetch our local storage

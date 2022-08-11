@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
+import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner, Text, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
 import { ChatState } from '../../Context/ChatProvider'
 import ProfileModal from './ProfileModal'
 import { useNavigate } from 'react-router-dom'
@@ -64,11 +64,14 @@ const SideDrawer = () => {
       setLoadingChat(true)
       const config = {
         headers: {
-          "Content-type": "application/json"
+          "Content-type": "application/json",
           Authorization: `Bearer ${user.token}`,
         }
       }
       const {data} = await axios.post(`${baseUrl}/api/chat`,{userId},config)
+      //if chat is already in chat state which we are fetching inside mychats
+      //we will append it 
+      if(!chats.find((c)=> c._id === data._id)) setChats([data,...chats])
       setSelectedChat(data)
       setLoading(false)
       onClose()//close the drawer
@@ -150,6 +153,8 @@ const SideDrawer = () => {
               user = {user}
               handleFunction = {()=>accessChat(user._id)}/>
             )))}
+          {/* when chat is loading  */}
+          {loadingChat && <Spinner ml="auto" d="flex"/>}
         </DrawerBody>
       </DrawerContent>
     </Drawer>
