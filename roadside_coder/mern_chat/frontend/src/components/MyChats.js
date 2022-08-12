@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ChatState } from '../Context/ChatProvider'
 import ChatLoading from './ChatLoading'
 import { getSender } from '../config/ChatLogics'
+import GroupChatModal from './miscellaneous/GroupChatModal'
 
 const MyChats = () => {
   const [loggedUser, setLoggedUser] = useState() //local state
@@ -54,7 +55,9 @@ const MyChats = () => {
         <Flex alignItems="center" mb="5px">
           <Text ><strong>My Chats</strong></Text>
           <Spacer />
+          <GroupChatModal>
           <Button>New Group Chat&nbsp;<i class="fa-solid fa-plus"></i></Button>
+          </GroupChatModal>
         </Flex>
 
         <Box
