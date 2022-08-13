@@ -3,7 +3,7 @@ import React from 'react'
 
 const UserBadgeItem = ({user,handleFunction}) => {
   return (
-    <>
+    
     <Box
     px={2}
     py={1}
@@ -19,7 +19,7 @@ const UserBadgeItem = ({user,handleFunction}) => {
         {user.name}
         <span>&#10060;</span>
     </Box>
-    </>
+    
   )
 }
 

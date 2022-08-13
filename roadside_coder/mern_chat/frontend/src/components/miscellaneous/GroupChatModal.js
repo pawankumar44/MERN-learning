@@ -62,9 +62,56 @@ const GroupChatModal = ({children}) => {
       setSelectedUsers([...selectedUsers,userToAdd])
     }
 
-    const handleSubmit = () => {}
+    const handleDelete = (delUser) => {
+      //filter out of the selected users
+      setSelectedUsers(
+        selectedUsers.filter((sel)=>sel._id !== delUser._id))
+    }
 
-    const handleDelete = () => {}
+    const handleSubmit = async () => {
+      if(!groupChatName || !selectedUsers){
+        toast({
+          title: 'Please fill all the fields',
+          status: 'warning',
+          duration: 5000,
+          isClosable: true,
+          position: "top"
+        })
+        return
+      }
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          }
+        }
+        const {data} = await axios.post(`${baseUrl}/api/chat/group`,{
+          name:groupChatName,
+          //remember it will take users array in stringify format
+          users: JSON.stringify(selectedUsers.map((u)=>u._id))
+        },config)
+        //add group to our list of chats
+        //... helps in adding to top of chats
+        setChats([data, ...chats])
+        onClose()//close the modal
+        toast({
+          title: 'New Group Chat Created',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: "bottom"
+        })
+      } catch (error) {
+        toast({
+          title: 'Failed to Create Group Chat',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: "bottom"
+        })
+      }
+    }
 
     //apend this group chat with other chats
     const {user,chats,setChats} = ChatState()//take out three things
