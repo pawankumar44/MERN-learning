@@ -1,4 +1,4 @@
-import { useToast, Box,Text, Flex, Spacer, Button, Stack } from '@chakra-ui/react'
+import { useToast, Box,Text, Flex, Spacer, Button, Stack, Show, Hide } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { ChatState } from '../Context/ChatProvider'
@@ -6,7 +6,7 @@ import ChatLoading from './ChatLoading'
 import { getSender } from '../config/ChatLogics'
 import GroupChatModal from './miscellaneous/GroupChatModal'
 
-const MyChats = () => {
+const MyChats = ({fetchAgain}) => {
   const [loggedUser, setLoggedUser] = useState() //local state
   const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState()
   const toast = useToast()
@@ -36,11 +36,13 @@ const MyChats = () => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")))
     fetchChats()
-  }, [])
+  }, [fetchAgain]//whenever fetchchats changes the useEffects will run again
+  )
 
 
   return (
-    <>
+    
+      // <Hide below={selectedChat ? 'md': ''}>
       <Box
         d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
         flexDir="column"
@@ -66,7 +68,7 @@ const MyChats = () => {
         p={3}
         bg="#F8F8F8"
         w="100%"
-        h="100%"
+        h="77vh"
         borderRadius="lg"
         overflowY="hidden"
         >
@@ -95,7 +97,7 @@ const MyChats = () => {
           )}
         </Box>
       </Box>
-    </>
+      // </Hide>
   )
 }
 

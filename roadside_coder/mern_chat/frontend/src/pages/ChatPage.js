@@ -29,14 +29,15 @@ const ChatPage = () => {
   //take user state from context api
   //destructure user state from inside 
   const {user} = ChatState()
+  const [fetchAgain, setFetchAgain] = useState(false)//for updating chat list
 
   return (
     <div style={{ width: "100%" }}>
       {user && <SideDrawer />}
       <Flex p="10px">
-  {user && <MyChats />}
+  {user && <MyChats fetchAgain={fetchAgain} />}
   <Spacer />
-  {user && <ChatBox/>}
+  {user && <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />}
 </Flex>
     </div>
   );
