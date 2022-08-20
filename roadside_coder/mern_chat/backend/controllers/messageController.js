@@ -36,4 +36,24 @@ const sendMessage = asyncHandler(async(req,res)=>{
     }
 })
 
-module.exports = {sendMessage}
+
+//fetch all messages of particular chat
+const allMessages = asyncHandler(async(req,res)=>{
+    try {
+        const messages = await Message.find({
+           chat: req.params.chatId //get chat id from link params
+        })
+        //now after getting object we need to populate it
+        .populate(
+            "sender",
+            "name pic email"
+        )
+        .populate("chat")
+        //now send it
+        res.json(messages)
+    } catch (error) {
+        res.status(400)
+        throw new Error(error.message)
+    }
+})
+module.exports = {sendMessage,allMessages}
