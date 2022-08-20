@@ -4,6 +4,7 @@ const {chats} = require('./data/data')
 const connectDB = require('./config/db')
 const userRoutes = require('./routes/userRoutes')
 const chatRoutes = require('./routes/chatRoutes')
+const messageRoutes = require('./routes/messageRoutes')
 const {errorHandler,notFound} = require("../backend/middlewares/errorMiddleware")
 
 
@@ -34,6 +35,7 @@ app.get('/', function (req, res) {
 //making endpoint for users
 app.use('/api/user',userRoutes)//all further work done from userRoutes module
 app.use('/api/chat',chatRoutes)
+app.use('/api/message',messageRoutes)
 
 //error handling middleware
 //for not found url
