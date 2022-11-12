@@ -6,7 +6,7 @@ import { baseUrl } from '../../global_varibale_function/gloabl_varibale';
 import UserBadgeItem from '../user_avatar/UserBadgeItem';
 import UserListItem from '../user_avatar/UserListItem';
 
-const UpdateGroupChatModal = ({fetchAgain,setFetchAgain}) => {
+const UpdateGroupChatModal = ({fetchAgain,setFetchAgain,fetchMessages}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [groupChatName, setGroupChatName] = useState()
     const [search, setSearch] = useState("")
@@ -48,6 +48,7 @@ const UpdateGroupChatModal = ({fetchAgain,setFetchAgain}) => {
         //when user left the group then make selected chat empty for him
         user1._id === user._id ? setSelectedChat(): setSelectedChat(data)
         setFetchAgain(!fetchAgain)
+        fetchMessages();//all messages get refreshed after removing from group
         setLoading(false)
       } catch (error) {
         toast({

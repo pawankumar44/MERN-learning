@@ -6,6 +6,7 @@ import { ChatState } from '../Context/ChatProvider'
 import { baseUrl } from '../global_varibale_function/gloabl_varibale'
 import ProfileModal from './miscellaneous/ProfileModal'
 import UpdateGroupChatModal from './miscellaneous/UpdateGroupChatModal'
+import "./styles.css"
 
 const SingleChat = ({fetchAgain,setFetchAgain}) => {
    const {user,selectedChat,setSelectedChat} = ChatState()
@@ -106,6 +107,7 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
           <UpdateGroupChatModal 
           fetchAgain={fetchAgain}
           setFetchAgain={setFetchAgain}
+          fetchMessages = {fetchMessages}
           />
           </>
         )}
@@ -117,7 +119,7 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
           {loading ? (
             <Spinner/>
           ):(
-            <div>
+            <div className='messages'>
               {/* messages */}
             </div>
           )}
