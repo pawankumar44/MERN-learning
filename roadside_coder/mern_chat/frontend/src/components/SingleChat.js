@@ -6,6 +6,7 @@ import { ChatState } from '../Context/ChatProvider'
 import { baseUrl } from '../global_varibale_function/gloabl_varibale'
 import ProfileModal from './miscellaneous/ProfileModal'
 import UpdateGroupChatModal from './miscellaneous/UpdateGroupChatModal'
+import ScrollableChat from './ScrollableChat'
 import "./styles.css"
 
 const SingleChat = ({fetchAgain,setFetchAgain}) => {
@@ -120,7 +121,7 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
             <Spinner/>
           ):(
             <div className='messages'>
-              {/* messages */}
+              <ScrollableChat messages={messages} />
             </div>
           )}
           {/* input tag for chat input */}
