@@ -10,7 +10,8 @@ import ScrollableChat from './ScrollableChat'
 import "./styles.css"
 import io from 'socket.io-client'
 
-const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+//socket.io
+const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 const SingleChat = ({fetchAgain,setFetchAgain}) => {
@@ -19,6 +20,8 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
    const [messages, setMessages] = useState([])
    const [loading, setLoading] = useState(false)
    const [newMessage, setNewMessage] = useState()
+   const [socketConnected, setSocketConnected] = useState(false)
+
    const toast = useToast()
 
    const fetchMessages = async () => {
@@ -37,8 +40,9 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
       config)
       console.log(messages)
       setMessages(data)
-      
       setLoading(false)
+      //emit the signal to join the room
+      socket.emit('join chat',selectedChat._id)
     } catch (error) {
       toast({
         title: 'Error Occured!',
@@ -52,9 +56,37 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
     }
    }
 
+
+      //socket.io
+   //start the socket here
+   useEffect(() => {
+    socket = io(ENDPOINT,
+    //   {
+    //   transports:['websocket','polling','flashsocket'],
+    // }
+    )
+    socket.emit("setup",user)
+    socket.on("connection",()=>setSocketConnected(true))
+    console.log("bye")
+   }, [])
+
    useEffect(() => {
     fetchMessages()
+    selectedChatCompare = selectedChat//just to keep backup of state of selectedChat
    }, [selectedChat])//whenever selectedChat change fetech again also
+   
+   useEffect(() => {
+    //monitor the socket to see if we recieve anything from the socket
+    //if received then put it in a chat
+    socket.on('message recieved',(newMessageRecieved)=>{
+      //if there is nothing inside selected chat or chat doesn't match the currently selected chat 
+      if(!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id){
+        //give notification
+      }else{
+        setMessages([...messages,newMessageRecieved]) 
+      }
+    })
+   })//square brackets removed to update every time
    
 
    const sendMessage = async(event) => {
@@ -72,6 +104,8 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
         chatId:selectedChat._id
       },config)
       console.log(data)
+      //socket.io
+      socket.emit('new message',data)
       //what we are getting need to append it with the array of the messages
       setMessages([...messages,data])
     } catch (error) {
@@ -88,9 +122,6 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
     }
    }
 
-   useEffect(() => {
-    socket = io(ENDPOINT)
-   }, [])
    
 
    //pass e as event since it is taking event
