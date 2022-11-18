@@ -81,4 +81,10 @@ io.on("connection",(socket)=>{
     });
   });
 
+  //clean socket if we are done with it beacuse it will consume bandwith
+  socket.off("setup",()=>{
+    console.log("USER DISCONNECTED")
+    socket.leave(userData._id)
+  })
+
 })
