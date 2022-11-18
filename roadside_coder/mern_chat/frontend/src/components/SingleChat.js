@@ -14,7 +14,7 @@ const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 const SingleChat = ({fetchAgain,setFetchAgain}) => {
-   const {user,selectedChat,setSelectedChat} = ChatState()
+   const {user,selectedChat,setSelectedChat,notification,setNotification} = ChatState()
    //state for all messages
    const [messages, setMessages] = useState([])
    const [loading, setLoading] = useState(false)
@@ -65,13 +65,21 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
     selectedChatCompare = selectedChat//just to keep backup of state of selectedChat
    }, [selectedChat])//whenever selectedChat change fetech again also
    
+  //  console.log(notification,"-------------------")
    useEffect(() => {
     //monitor the socket to see if we recieve anything from the socket
     //if received then put it in a chat
     socket.on("message recieved",(newMessageRecieved)=>{
       //if there is nothing inside selected chat or chat doesn't match the currently selected chat
+      //
       if(!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id){
         //give notification
+        //notification array doesn't contain the message comming in
+        if(!notification.includes(newMessageRecieved)){
+          setNotification([newMessageRecieved,...notification])
+          //update list of chat
+          setFetchAgain(!fetchAgain) 
+        }
       }else{
         setMessages([...messages,newMessageRecieved])
       }

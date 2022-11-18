@@ -7,13 +7,14 @@ import {baseUrl} from '../../global_varibale_function/gloabl_varibale'
 import axios from 'axios'
 import ChatLoading from '../ChatLoading'
 import UserListItem from '../user_avatar/UserListItem'
+import { getSender } from '../../config/ChatLogics'
 
 const SideDrawer = () => {
   const [search, setSearch] = useState("")
   const [searchResult, setSearchResult] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadingChat, setLoadingChat] = useState()
-  const {user,setSelectedChat,chats,setChats} = ChatState()
+  const {user,setSelectedChat,chats,setChats,notification,setNotification} = ChatState()
   const navigate = useNavigate()
   const {isOpen, onOpen, onClose } = useDisclosure()//for side drawer
   const toast = useToast()
@@ -113,7 +114,27 @@ const SideDrawer = () => {
           <MenuButton p={1}>
           <i class="fa-solid fa-bell"></i>
           </MenuButton>
-          <MenuList></MenuList>
+          {notification.length && "New Message"}
+          <MenuList pl={2}>
+            {/* if there is no notifcation then say no new message */}
+            {!notification.length && "No New Messages" }
+            {/* else */}
+            {notification.map(noti =>(
+              <MenuItem
+              key={noti._id}
+              onClick={()=>{
+                setSelectedChat(noti.chat)
+                //remove from notification array
+                //if n not equal to notification then don't filter else do
+                setNotification(notification.filter((n)=>n!==noti))
+              }}
+              >
+              {noti.chat.isGroupChat
+                ? `New Message in ${noti.chat.chatName}`
+                :`New Message from ${getSender(user,noti.chat.users)}`}
+              </MenuItem>
+            ))}
+            </MenuList>
         </Menu>
         <Menu>
           <MenuButton as={Button} >
