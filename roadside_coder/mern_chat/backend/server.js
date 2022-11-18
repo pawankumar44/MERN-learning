@@ -46,9 +46,11 @@ app.use(errorHandler)
 
 
 const PORT = process.env.PORT || 5000
+//asign server to a variable because we need in socket.io
 const server = app.listen(PORT,console.log(`Server has been started on Port ${PORT}`));
 
 const io = require("socket.io")(server, {
+    //pingTimeout timeout if no communication occur to save bandwidth
   pingTimeout: 60000,
   cors: {
     origin: "http://localhost:3000",
@@ -56,15 +58,21 @@ const io = require("socket.io")(server, {
   },
 });
 
+//create a connection by giving "connection" name
 io.on("connection",(socket)=>{
   console.log("connected to socket.io")
 
+  //whenever user connected to the app he should be connected to his own personal socket
+  //this will take user data from frontend
+  //frontend will send data and we will join a room
   socket.on('setup',(userData)=>{
+    //room will be exclusive for that particular user only
     socket.join(userData._id);
     // console.log(userData._id)
     socket.emit('connected')
   })
 
+  //when we click on chat it creates room for users 
   socket.on('join chat',(room)=>{
     socket.join(room)
     console.log('User Joinded Room'+ room)
@@ -73,7 +81,7 @@ io.on("connection",(socket)=>{
   socket.on("new message",(newMessageRecieved)=>{
     var chat = newMessageRecieved.chat
     if(!chat.users) return console.log("chat users not found");
-    
+        //emit message to all of the user of the room in group chat not me
     chat.users.forEach(user =>{
       if(user._id === newMessageRecieved.sender._id)return;
 

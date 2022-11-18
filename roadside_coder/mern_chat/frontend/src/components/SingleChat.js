@@ -53,6 +53,7 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
     }
    }
 
+   //start the socket here
    useEffect(() => {
     socket = io(ENDPOINT)
     socket.emit("setup",user)
@@ -61,18 +62,21 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
 
    useEffect(() => {
     fetchMessages()
-    selectedChatCompare = selectedChat
+    selectedChatCompare = selectedChat//just to keep backup of state of selectedChat
    }, [selectedChat])//whenever selectedChat change fetech again also
    
    useEffect(() => {
+    //monitor the socket to see if we recieve anything from the socket
+    //if received then put it in a chat
     socket.on("message recieved",(newMessageRecieved)=>{
+      //if there is nothing inside selected chat or chat doesn't match the currently selected chat
       if(!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id){
         //give notification
       }else{
         setMessages([...messages,newMessageRecieved])
       }
     })
-   })
+   })//square brackets removed to update every time
    
 
    const sendMessage = async(event) => {

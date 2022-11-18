@@ -10,6 +10,8 @@ const ChatProvider = ({children}) => {
     const [user, setUser] = useState()
     const [selectedChat, setSelectedChat] = useState()
     const [chats, setChats] = useState([])//to populate current chat in chat state,[] is used for safety purose for error
+    const [notification, setNotification] = useState([])
+    
     const navigate = useNavigate()
 
     // fetch our local storage
@@ -22,7 +24,7 @@ const ChatProvider = ({children}) => {
     },[navigate])//whenever navigate changes it will run again
     return (
         <ChatContext.Provider
-        value={{user,setUser,selectedChat,setSelectedChat,chats,setChats}}>{children}</ChatContext.Provider>
+        value={{user,setUser,selectedChat,setSelectedChat,chats,setChats, notification,setNotification}}>{children}</ChatContext.Provider>
         )
     
 }
