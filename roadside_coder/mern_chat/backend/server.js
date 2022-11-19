@@ -75,7 +75,8 @@ const io = require("socket.io")(server, {
     //pingTimeout timeout if no communication occur to save bandwidth
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",//for run on server
+    // origin: "http://localhost:3000",//for run without server
     // credentials: true,
   },
 });
