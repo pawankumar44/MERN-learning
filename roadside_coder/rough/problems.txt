@@ -1,1 +1,4 @@
 1> chating area increasing
+2> failed to load search result occur after deleting account
+3> make notification database
+4> add graphic in notification
