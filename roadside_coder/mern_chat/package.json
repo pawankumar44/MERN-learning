@@ -1,7 +1,7 @@
 {
-  "name": "talk-a-tiv",
+  "name": "fliob",
   "version": "1.0.0",
-  "description": "first step of learing chat app",
+  "description": "chat app for college project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

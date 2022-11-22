@@ -135,20 +135,20 @@ const SignUp = () => {
   return (
     <VStack spacing="5px">
         <FormControl id='first-name' isRequired>
-            <FormLabel>Name</FormLabel>
-            <Input placeholder='Enter Your Name'
+            <FormLabel color={'white'}>Name</FormLabel>
+            <Input backgroundColor={'white'} placeholder='Enter Your Name'
             onChange={(e)=>setName(e.target.value)}></Input>
         </FormControl>
         <FormControl id='email' isRequired>
-            <FormLabel>Email</FormLabel>
-            <Input placeholder='Enter Your Email'
+            <FormLabel color={'white'}>Email</FormLabel>
+            <Input backgroundColor={'white'} placeholder='Enter Your Email'
             onChange={(e)=>setEmail(e.target.value)}></Input>
         </FormControl>
 
         <FormControl id='password' isRequired>
-            <FormLabel>Password</FormLabel>
+            <FormLabel color={'white'}>Password</FormLabel>
             <InputGroup>
-            <Input type={show ?  "text": "password"}
+            <Input backgroundColor={'white'} type={show ?  "text": "password"}
              placeholder='Enter Password'
             onChange={(e)=>setPassword(e.target.value)}></Input>
             <InputRightElement width="4.5rem">
@@ -161,9 +161,9 @@ const SignUp = () => {
         </FormControl>
 
         <FormControl id='confirm-password' isRequired>
-            <FormLabel>Confirm Password</FormLabel>
+            <FormLabel color={'white'}>Confirm Password</FormLabel>
             <InputGroup>
-            <Input type={show ?  "text": "password"}
+            <Input backgroundColor={'white'} type={show ?  "text": "password"}
              placeholder='Enter Password Again'
             onChange={(e)=>setConfirmPassword(e.target.value)}></Input>
             <InputRightElement width="4.5rem">
@@ -176,8 +176,8 @@ const SignUp = () => {
         </FormControl>
 
         <FormControl id='pic' isRequired>
-            <FormLabel>Upload Your Picture</FormLabel>
-            <Input p={1.5}
+            <FormLabel color={'white'}>Upload Your Picture</FormLabel>
+            <Input backgroundColor={'white'} p={1.5}
             type="file" accept='images/*'
             onChange={(e)=> postDetails(e.target.files[0])}></Input>
         </FormControl>

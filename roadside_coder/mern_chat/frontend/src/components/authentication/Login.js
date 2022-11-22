@@ -64,16 +64,16 @@ const Login = () => {
     return (
         <VStack spacing="5px">
             <FormControl id='email' isRequired>
-                <FormLabel>Email</FormLabel>
-                <Input placeholder='Enter Your Email'
+                <FormLabel color={'white'}>Email</FormLabel>
+                <Input backgroundColor={'white'} placeholder='Enter Your Email'
                 value={email}
                     onChange={(e) => setEmail(e.target.value)}></Input>
             </FormControl>
 
             <FormControl id='password' isRequired>
-                <FormLabel>Password</FormLabel>
+                <FormLabel color={'white'}>Password</FormLabel>
                 <InputGroup>
-                    <Input type={show ? "text" : "password"}
+                    <Input backgroundColor={'white'} type={show ? "text" : "password"}
                         placeholder='Enter Password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}></Input>

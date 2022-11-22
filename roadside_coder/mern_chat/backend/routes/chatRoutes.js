@@ -13,5 +13,8 @@ router.route('/rename').put(protect,renameGroup)//rename a particular group
 router.route('/groupadd').put(protect,addToGroup)//Add someone to group
 router.route('/groupremove').put(protect,removeFromGroup)//remove someone or leave the group
 
+// for notification
+
+
 
 module.exports = router

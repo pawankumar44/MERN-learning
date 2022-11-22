@@ -78,6 +78,7 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
         //notification array doesn't contain the message comming in
         if(!notification.includes(newMessageRecieved)){
           setNotification([newMessageRecieved,...notification])
+          console.log(notification)
           //update list of chat
           setFetchAgain(!fetchAgain) 
         }

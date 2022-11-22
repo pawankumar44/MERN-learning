@@ -1,4 +1,4 @@
-import { Container, Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Container, Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel, Divider } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Login from '../components/authentication/Login'
@@ -14,7 +14,7 @@ function Homepage() {
   return (
     //container in chakra adust according to screen size
     <Container maxW='xl' centerContent>
-      <Box
+      {/* <Box
         d="flex"
         justifyContent="center"
         p={3}
@@ -24,13 +24,30 @@ function Homepage() {
         borderRadius="1g"
         borderWidth="1px"
       ><Text fontSize={'4xl'} fontFamily="work sans" color={'black'}>
-          Chat-Pi</Text></Box>
+          Chat-Pi</Text></Box> */}
         
-      <Box bg="white" width="100%" p={4} borderRadius="lg" borderWidth="1px">
+      <Box bg="white" width="100%" p={4} backgroundColor={'transparent'} borderRadius="lg" borderWidth="0px">
+      <Box
+        d=""
+        justifyContent="center"
+        p={3}
+        bg={"transparent"}
+        w="100%"
+        m="30px 0 15px 0"
+        // borderRadius="1g"
+        // borderWidth="1px"
+      >
+        <Text fontSize={'4xl'} textAlign={'center'} letterSpacing={'wider'} fontWeight={'bold'} fontFamily="work sans" color={'white'}>
+          Fliob</Text>
+          <Divider borderColor={'transparent'}/>
+          <Text fontSize={'2xl'} textAlign={'center'}  fontFamily="work sans" color={'white'}>
+          a simple platform for chatting</Text>
+          
+          </Box>
         <Tabs variant='soft-rounded' >
           <TabList mb="1em">
-            <Tab>Login</Tab>
-            <Tab>Sign-up</Tab>
+            <Tab color={'whitesmoke'}>Login</Tab>
+            <Tab color={'whitesmoke'}>Sign-up</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
