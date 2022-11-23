@@ -97,7 +97,7 @@ const SideDrawer = () => {
     // alignItems="center"
     bg="white"
     w="100%"
-    p="5px 10px 5px 10px"
+    p="7px 10px 7px 10px"
     borderWidth="0px"
     >
       <Flex justifyContent="space-between">
@@ -112,6 +112,7 @@ const SideDrawer = () => {
        <Text fontSize={'2xl'} letterSpacing={'wider'} fontWeight={'bold'} fontFamily="work sans" color={'black'}>
           Fliob</Text>
        <div>
+
         <Menu>
           <MenuButton p={1}>
           <i class="fa-solid fa-bell"></i>
@@ -138,11 +139,13 @@ const SideDrawer = () => {
             ))}
             </MenuList>
         </Menu>
+
+
         <Menu>
-          <MenuButton as={Button} >
+          <MenuButton bgColor={'transparent'} as={Button} >
             <Avatar size="sm" cursor="pointer" name={user.name}
             src={user.pic}></Avatar>
-            <i class="fa-solid fa-caret-down"></i>
+            {/* <i class="fa-solid fa-caret-down"></i> */}
           </MenuButton>
           <MenuList>
             <ProfileModal user={user}>

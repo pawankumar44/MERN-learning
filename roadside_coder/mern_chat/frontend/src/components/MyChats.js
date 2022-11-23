@@ -41,7 +41,6 @@ const MyChats = ({fetchAgain}) => {
 
 
   return (
-    
       // <Hide below={selectedChat ? 'md': ''}>
       <Box
         d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
@@ -49,24 +48,28 @@ const MyChats = ({fetchAgain}) => {
         alignItems="center"
         p={3}
         bg="white"
-        h="87vh"
+        h="90vh"
         w={{ base: "100%", md: "31%" }}
-        borderRadius="lg"
+        // borderRadius="lg"
         borderWidth="1px"
       >
-        <Flex alignItems="center" mb="5px">
-          <Text ><strong>My Chats</strong></Text>
+        <Box paddingInline={3} d="flex" width={'100%'} alignContent={'space-between'} flexDir = "row">
+          {/* <Text >My Chats</Text> */}
+          <Text fontSize={'2xl'} letterSpacing={'wider'} fontWeight={'bold'} fontFamily="work sans" color={'black'}>
+          Chats</Text>
           <Spacer />
           <GroupChatModal>
-          <Button>New Group Chat&nbsp;<i class="fa-solid fa-plus"></i></Button>
+          {/* <Button>New Group Chat&nbsp;<i class="fa-solid fa-plus"></i></Button> */}
+          <Button>Group&nbsp;<i class="fa-solid fa-plus"></i></Button>
           </GroupChatModal>
-        </Flex>
+        </Box>
 
         <Box
         d="flex"
         flexDir = "column"
-        p={3}
-        bg="#F8F8F8"
+        p={0}
+        mt={3}
+        // bg="#F8F8F8"
         w="100%"
         h="77vh"
         borderRadius="lg"
@@ -75,6 +78,119 @@ const MyChats = ({fetchAgain}) => {
           {/* check if something inside chat array then do something */}
           {chats? (
             <Stack overflowY="scroll">
+              {chats.map((chat)=>(
+                <Box
+                  onClick={()=>setSelectedChat(chat)}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color= {selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chat._id}
+                >
+                  {/* <Avatar size="sm" cursor="pointer" name={user.name}src={user.pic}></Avatar> */}
+                  <Text>
+                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
+                  </Text>
+                </Box>
+              ))}
+              {chats.map((chat)=>(
+                <Box
+                  onClick={()=>setSelectedChat(chat)}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color= {selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chat._id}
+                >
+                  <Text>
+                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
+                  </Text>
+                </Box>
+              ))}
+              {chats.map((chat)=>(
+                <Box
+                  onClick={()=>setSelectedChat(chat)}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color= {selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chat._id}
+                >
+                  <Text>
+                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
+                  </Text>
+                </Box>
+              ))}
+              {chats.map((chat)=>(
+                <Box
+                  onClick={()=>setSelectedChat(chat)}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color= {selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chat._id}
+                >
+                  <Text>
+                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
+                  </Text>
+                </Box>
+              ))}
+              {chats.map((chat)=>(
+                <Box
+                  onClick={()=>setSelectedChat(chat)}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color= {selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chat._id}
+                >
+                  <Text>
+                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
+                  </Text>
+                </Box>
+              ))}
+              {chats.map((chat)=>(
+                <Box
+                  onClick={()=>setSelectedChat(chat)}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color= {selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chat._id}
+                >
+                  <Text>
+                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
+                  </Text>
+                </Box>
+              ))}
+              {chats.map((chat)=>(
+                <Box
+                  onClick={()=>setSelectedChat(chat)}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color= {selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chat._id}
+                >
+                  <Text>
+                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
+                  </Text>
+                </Box>
+              ))}
               {chats.map((chat)=>(
                 <Box
                   onClick={()=>setSelectedChat(chat)}
