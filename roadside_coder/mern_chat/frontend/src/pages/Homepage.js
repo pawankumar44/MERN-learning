@@ -1,4 +1,4 @@
-import { Container, Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel, Divider } from '@chakra-ui/react'
+import { Container, Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel, Divider, Image, Flex } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Login from '../components/authentication/Login'
@@ -37,8 +37,13 @@ function Homepage() {
         // borderRadius="1g"
         // borderWidth="1px"
       >
+        <Box d="flex" justifyContent={'center'}>
+        <Image boxSize={'40px'} src={ require('./logo.png') } alt='chat-icon' />
         <Text fontSize={'4xl'} textAlign={'center'} letterSpacing={'wider'} fontWeight={'bold'} fontFamily="work sans" color={'white'}>
           Fliob</Text>
+        </Box>
+          
+          {/* <img src={ require('./logo.png') } /> */}
           <Divider borderColor={'transparent'}/>
           <Text fontSize={'2xl'} textAlign={'center'}  fontFamily="work sans" color={'white'}>
           a simple platform for chatting</Text>

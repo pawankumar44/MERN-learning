@@ -89,13 +89,13 @@ const Login = () => {
             <Button colorScheme="blue" width="100%"
                 style={{ marginTop: 15 }} onClick={submitHandler}>Login</Button>
 
-            <Button colorScheme="red" variant="solid" width="100%"
+            {/* <Button colorScheme="red" variant="solid" width="100%"
                 style={{ marginTop: 15 }}
                  onClick={()=>{
                     setEmail('guest@example.com')
                     setPassword('123456')
                  }} isLoading = {loading}>
-                    Get Gusest User Credentials</Button>
+                    Get Gusest User Credentials</Button> */}
 
         </VStack>
     )

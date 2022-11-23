@@ -98,7 +98,7 @@ const SideDrawer = () => {
     bg="white"
     w="100%"
     p="5px 10px 5px 10px"
-    borderWidth="5px"
+    borderWidth="0px"
     >
       <Flex justifyContent="space-between">
       <Tooltip label="Search Users to Chat" hasArrow
@@ -108,7 +108,9 @@ const SideDrawer = () => {
         <Text d={{base:"none",md:"flex"}} px='4'>Search User</Text>
         </Button>
        </Tooltip>
-       <Text fontSize="2xl" fontFamily="Work sans">Texting</Text>
+       {/* <Text fontSize="2xl" fontFamily="Work sans">Texting</Text> */}
+       <Text fontSize={'2xl'} letterSpacing={'wider'} fontWeight={'bold'} fontFamily="work sans" color={'black'}>
+          Fliob</Text>
        <div>
         <Menu>
           <MenuButton p={1}>
