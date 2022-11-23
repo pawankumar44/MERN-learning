@@ -1,4 +1,4 @@
-import { Box, Button, Flex, FormControl, Input, Spinner, Text, useToast } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, FormControl, Input, Spinner, Text, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { getSender,getSenderFull } from '../config/ChatLogics'
@@ -175,7 +175,17 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
         </>
         
     ) : (
-          <Flex justifyContent="center"><Text >Click on a user to start chat</Text></Flex>
+          <Box
+            position="absolute"
+            top="45%"
+            left="50%"
+            transform="translateY(-50%, -50%)"
+          >
+            <Text align={'center'} fontSize={'3xl'} letterSpacing={'wider'} fontWeight={'bold'} fontFamily="work sans" color={'black'}>
+            Welcome to Fliob
+            </Text>
+            <Text align={'center'}>Select chat or search user to start chatting</Text>
+          </Box>
     )}
     </>
   )

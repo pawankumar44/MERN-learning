@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner, Text, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
+import { Avatar, Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Image, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner, Text, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
 import { ChatState } from '../../Context/ChatProvider'
 import ProfileModal from './ProfileModal'
 import { useNavigate } from 'react-router-dom'
@@ -109,8 +109,11 @@ const SideDrawer = () => {
         </Button>
        </Tooltip>
        {/* <Text fontSize="2xl" fontFamily="Work sans">Texting</Text> */}
+       <Box d='flex' flexDir={'row'}>
+       <Image boxSize={'35px'} src={ require('../../pages/logo.png') } alt='chat-icon' />
        <Text fontSize={'2xl'} letterSpacing={'wider'} fontWeight={'bold'} fontFamily="work sans" color={'black'}>
           Fliob</Text>
+       </Box>
        <div>
 
         <Menu>

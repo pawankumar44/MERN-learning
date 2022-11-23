@@ -36,7 +36,7 @@ const ChatPage = () => {
       {user && <SideDrawer />}
       <Flex p="0px">
   {user && <MyChats fetchAgain={fetchAgain} />}
-  <Spacer />
+  {/* <Spacer /> */}
   {user && <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />}
 </Flex>
     </div>
