@@ -6,6 +6,11 @@ export const getSenderFull = (loggedUser,users)=>{
     return users[0]._id === loggedUser._id ? users[1] : users[0].name
 }
 
+export const getSenderdetail = (loggedUser,users)=>{
+    return users[0]._id === loggedUser._id ? users[1] : users[0]
+}
+
+
 // messages = all of our message
 // m = the current message
 //i = index of the current message 

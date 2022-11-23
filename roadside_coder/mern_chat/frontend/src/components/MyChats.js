@@ -1,10 +1,11 @@
-import { useToast, Box,Text, Flex, Spacer, Button, Stack, Show, Hide } from '@chakra-ui/react'
+import { useToast, Box,Text, Flex, Spacer, Button, Stack, Show, Hide, Avatar } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { ChatState } from '../Context/ChatProvider'
 import ChatLoading from './ChatLoading'
-import { getSender } from '../config/ChatLogics'
+import { getSender, getSenderdetail } from '../config/ChatLogics'
 import GroupChatModal from './miscellaneous/GroupChatModal'
+import { capitalizeFirst } from '../config/Functions'
 
 const MyChats = ({fetchAgain}) => {
   const [loggedUser, setLoggedUser] = useState() //local state
@@ -80,130 +81,23 @@ const MyChats = ({fetchAgain}) => {
             <Stack overflowY="scroll">
               {chats.map((chat)=>(
                 <Box
+                  d='flex'
                   onClick={()=>setSelectedChat(chat)}
                   cursor="pointer"
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  bg={selectedChat === chat ? "#38B2AC" : "white"}
                   color= {selectedChat === chat ? "white" : "black"}
                   px={3}
                   py={2}
                   borderRadius="lg"
                   key={chat._id}
                 >
-                  {/* <Avatar size="sm" cursor="pointer" name={user.name}src={user.pic}></Avatar> */}
-                  <Text>
-                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
-                  </Text>
-                </Box>
-              ))}
-              {chats.map((chat)=>(
-                <Box
-                  onClick={()=>setSelectedChat(chat)}
-                  cursor="pointer"
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                  color= {selectedChat === chat ? "white" : "black"}
-                  px={3}
-                  py={2}
-                  borderRadius="lg"
-                  key={chat._id}
-                >
-                  <Text>
-                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
-                  </Text>
-                </Box>
-              ))}
-              {chats.map((chat)=>(
-                <Box
-                  onClick={()=>setSelectedChat(chat)}
-                  cursor="pointer"
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                  color= {selectedChat === chat ? "white" : "black"}
-                  px={3}
-                  py={2}
-                  borderRadius="lg"
-                  key={chat._id}
-                >
-                  <Text>
-                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
-                  </Text>
-                </Box>
-              ))}
-              {chats.map((chat)=>(
-                <Box
-                  onClick={()=>setSelectedChat(chat)}
-                  cursor="pointer"
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                  color= {selectedChat === chat ? "white" : "black"}
-                  px={3}
-                  py={2}
-                  borderRadius="lg"
-                  key={chat._id}
-                >
-                  <Text>
-                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
-                  </Text>
-                </Box>
-              ))}
-              {chats.map((chat)=>(
-                <Box
-                  onClick={()=>setSelectedChat(chat)}
-                  cursor="pointer"
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                  color= {selectedChat === chat ? "white" : "black"}
-                  px={3}
-                  py={2}
-                  borderRadius="lg"
-                  key={chat._id}
-                >
-                  <Text>
-                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
-                  </Text>
-                </Box>
-              ))}
-              {chats.map((chat)=>(
-                <Box
-                  onClick={()=>setSelectedChat(chat)}
-                  cursor="pointer"
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                  color= {selectedChat === chat ? "white" : "black"}
-                  px={3}
-                  py={2}
-                  borderRadius="lg"
-                  key={chat._id}
-                >
-                  <Text>
-                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
-                  </Text>
-                </Box>
-              ))}
-              {chats.map((chat)=>(
-                <Box
-                  onClick={()=>setSelectedChat(chat)}
-                  cursor="pointer"
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                  color= {selectedChat === chat ? "white" : "black"}
-                  px={3}
-                  py={2}
-                  borderRadius="lg"
-                  key={chat._id}
-                >
-                  <Text>
-                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
-                  </Text>
-                </Box>
-              ))}
-              {chats.map((chat)=>(
-                <Box
-                  onClick={()=>setSelectedChat(chat)}
-                  cursor="pointer"
-                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                  color= {selectedChat === chat ? "white" : "black"}
-                  px={3}
-                  py={2}
-                  borderRadius="lg"
-                  key={chat._id}
-                >
-                  <Text>
-                    {!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName}
+                  <Avatar size="sm" 
+                  name={!chat.isGroupChat?getSender(loggedUser,chat.users):chat.chatName} 
+                  src={!chat.isGroupChat?getSenderdetail(loggedUser,chat.users).pic:chat.chatName}
+                  ></Avatar>
+                  <Box width={'7px'}></Box>
+                  <Text mt={'4px'}>
+                    {!chat.isGroupChat?capitalizeFirst(getSender(loggedUser,chat.users)):capitalizeFirst(chat.chatName)}
                   </Text>
                 </Box>
               ))}
