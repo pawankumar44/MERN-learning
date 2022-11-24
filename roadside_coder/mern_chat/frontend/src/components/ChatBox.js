@@ -9,13 +9,13 @@ const ChatBox = ({fetchAgain,setFetchAgain}) => {
     //set on base screen and medium screen
     <Box
      d={{base:selectedChat ? "flex" : "none", md:"flex" }}
-     alignItems="center"
+    //  alignItems="center"
      flexDir="column"
-     p={3}
+     p={0}
      bg="white"
      w={{base:"100%",md:"68%"}}
     //  borderRadius="lg"
-     borderWidth="1px">
+     borderWidth="1px" overflowY="hidden">
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
     </Box>
   )

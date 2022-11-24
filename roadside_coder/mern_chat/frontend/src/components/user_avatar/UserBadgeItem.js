@@ -1,5 +1,6 @@
 import { Box, CloseButton } from '@chakra-ui/react'
 import React from 'react'
+import { capitalizeFirst } from '../../config/Functions'
 
 const UserBadgeItem = ({user,handleFunction}) => {
   return (
@@ -16,7 +17,7 @@ const UserBadgeItem = ({user,handleFunction}) => {
     color="white"
     cursor="pointer"
     onClick={handleFunction}>
-        {user.name}
+        {capitalizeFirst(user.name)}
         <span>&#10060;</span>
     </Box>
     

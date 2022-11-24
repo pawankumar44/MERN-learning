@@ -1,7 +1,7 @@
-import { Box, Button, Center, Flex, FormControl, Input, Spinner, Text, useToast } from '@chakra-ui/react'
+import { Avatar, Box, Button, Center, Flex, FormControl, Input, Spinner, Text, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { getSender,getSenderFull } from '../config/ChatLogics'
+import { getSender,getSenderFull,getSenderdetail } from '../config/ChatLogics'
 import { ChatState } from '../Context/ChatProvider'
 import { baseUrl } from '../global_varibale_function/gloabl_varibale'
 import ProfileModal from './miscellaneous/ProfileModal'
@@ -9,6 +9,9 @@ import UpdateGroupChatModal from './miscellaneous/UpdateGroupChatModal'
 import ScrollableChat from './ScrollableChat'
 import "./styles.css"
 import io from 'socket.io-client'
+import { capitalizeFirst } from '../config/Functions'
+import { ArrowLeftShort } from "react-bootstrap-icons";
+
 
 // const ENDPOINT = "http://localhost:5000"; 
 const ENDPOINT = "https://fliob.herokuapp.com/"; 
@@ -64,7 +67,7 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
    useEffect(() => {
     fetchMessages()
     selectedChatCompare = selectedChat//just to keep backup of state of selectedChat
-   }, [selectedChat])//whenever selectedChat change fetech again also
+  }, [selectedChat])//whenever selectedChat change fetech again also
    
   //  console.log(notification,"-------------------")
    useEffect(() => {
@@ -128,31 +131,61 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
     //typing indicator logic
    }
 
+  //  const senderId = getSenderdetail(user,selectedChat.users)
+
   return (
     <>
     {selectedChat ? (
         <>
-        <Button onClick={()=>setSelectedChat("")} justifyContent="center" alignItems="center"><span style={{fontSize:"50px"}}>&#8592;</span></Button>
+        <Box d='flex' h='60px' alignItems={'center'} w={{base:"100%",md:"68%"}}>
+        <Button onClick={()=>setSelectedChat("")} justifyContent="center" bgColor={'transparent'} alignItems="center">
+          {/* &#8592; */}
+          <ArrowLeftShort color='black' size={40} />
+          </Button>
         
         {!selectedChat.isGroupChat ? (
+          
         <>
-          {getSender(user,selectedChat.users)}
-          <ProfileModal user={getSenderFull(user,selectedChat.users)} />
-
+          <ProfileModal user={getSenderdetail(user,selectedChat.users)}
+           children={
+            <Box d='flex' alignItems={'center'}>
+              <Avatar size="sm" cursor="pointer"
+               name={getSenderdetail(user,selectedChat.users).name}
+           src={getSenderdetail(user,selectedChat.users).pic}></Avatar>
+           <Box w={'2'}></Box>
+          {capitalizeFirst(getSender(user,selectedChat.users))}
+            </Box>
+           } />
         </>):
         (
           <>
-          {selectedChat.chatName.toUpperCase()}
           <UpdateGroupChatModal 
           fetchAgain={fetchAgain}
           setFetchAgain={setFetchAgain}
           fetchMessages = {fetchMessages}
-          />
+           children={
+            <Box d='flex' alignItems={'center'}>
+              <Avatar size="sm" cursor="pointer"
+               name={selectedChat.chatName}
+           src={selectedChat.chatName}></Avatar>
+           <Box w={'2'}></Box>
+          <strong>{capitalizeFirst(selectedChat.chatName)}</strong>
+            </Box>
+           } />
+
+          {/* <strong>{capitalizeFirst(selectedChat.chatName)}</strong>
+          <UpdateGroupChatModal 
+          fetchAgain={fetchAgain}
+          setFetchAgain={setFetchAgain}
+          fetchMessages = {fetchMessages}
+          /> */}
           </>
         )}
+        </Box>
+
         <Box
         justifyContent="flex-end" d="flex" flexDir="column"
-        p={3} bg="#E8E8E8" w="100%" h="100%" borderRadius="lg"
+        p={2} bg="#E8E8E8" w="100%" h="79.6vh" borderRadius="0"
         overflowY="hidden">
           {/* messages here */}
           {loading ? (

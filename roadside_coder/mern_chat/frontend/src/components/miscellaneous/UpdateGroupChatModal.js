@@ -1,12 +1,13 @@
 import { Button, IconButton, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast,Box, Flex, FormControl, Input, Spinner } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useState } from 'react'
+import { capitalizeFirst } from '../../config/Functions';
 import { ChatState } from '../../Context/ChatProvider';
 import { baseUrl } from '../../global_varibale_function/gloabl_varibale';
 import UserBadgeItem from '../user_avatar/UserBadgeItem';
 import UserListItem from '../user_avatar/UserListItem';
 
-const UpdateGroupChatModal = ({fetchAgain,setFetchAgain,fetchMessages}) => {
+const UpdateGroupChatModal = ({fetchAgain,setFetchAgain,fetchMessages,children}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [groupChatName, setGroupChatName] = useState()
     const [search, setSearch] = useState("")
@@ -174,13 +175,17 @@ const UpdateGroupChatModal = ({fetchAgain,setFetchAgain,fetchMessages}) => {
 
   return (
     <>
-    <IconButton d={{base:"flex"}} onClick={onOpen}>
+        {children ? (
+        <span onClick={onOpen}>{children}</span>
+    ):(
+        <IconButton d={{base:"flex"}} onClick={onOpen}>
             <i class="fa-solid fa-eye"></i>
         </IconButton>
+    )}
           <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{selectedChat.chatName}</ModalHeader>
+          <ModalHeader>{capitalizeFirst(selectedChat.chatName)}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex>

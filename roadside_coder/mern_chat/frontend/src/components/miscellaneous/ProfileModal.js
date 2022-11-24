@@ -1,5 +1,6 @@
 import { Button, IconButton, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
+import { capitalizeFirst } from '../../config/Functions'
 
 const ProfileModal = ({user,children}) => {
     const {isOpen, onOpen, onClose } = useDisclosure()
@@ -15,7 +16,7 @@ const ProfileModal = ({user,children}) => {
           <Modal size="lg" isOpen={isOpen} isCentered onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{user.name}</ModalHeader>
+          <ModalHeader>{capitalizeFirst(user.name)}</ModalHeader>
           <ModalCloseButton/>
           <ModalBody>
             <Image 
@@ -24,13 +25,13 @@ const ProfileModal = ({user,children}) => {
             src={user.pic}
             alt={user.name}>
             </Image>
-            <Text>Email: {user.email}</Text>
+            <Text><strong>Email:</strong> {user.email}</Text>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
+            {/* <Button colorScheme='blue' mr={3} onClick={onClose}>
               Close
-            </Button>
+            </Button> */}
           </ModalFooter>
         </ModalContent>
       </Modal>
