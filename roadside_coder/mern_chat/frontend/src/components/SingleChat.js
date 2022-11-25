@@ -189,7 +189,7 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
         overflowY="hidden">
           {/* messages here */}
           {loading ? (
-            <Spinner/>
+            <Spinner color='blue'/>
           ):(
             <div className='messages'>
               <ScrollableChat messages={messages} />
@@ -199,7 +199,8 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
           <FormControl onKeyDown={sendMessage} isRequired mt={3}>
             <Input  
             varient= "filled"
-            bg="#E0E0E0"
+            // bg="#E0E0E0"
+            bg={'white'}
             placeholder='Enter a message..'
             onChange={typingHandler}
             value={newMessage}/>
