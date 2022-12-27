@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Chat = require("../models/chatModels")
+const Notification = require('../models/notificationModel')
 const User = require("../models/userModel")
 //creating or feteching one on one chat
 const accessChat = asyncHandler(async(req,res)=>{
@@ -184,5 +185,29 @@ const removeFromGroup = asyncHandler(async(req,res)=>{
     }
 })
 
+//notification
+const fetchNotification = asyncHandler(async(req,res)=>{
+            //create a new chat
+            const {messages} = req.body
+            //now query it and save in database
+            try {
+                const createdNotification = await Notification.create({
+                    userId:req.user._id,
+                    messages:messages
+                })
+                // if(createdNotification){
+                    return res.sendStatus(200)
+                // }
+                // else {
+                //     res.json.status(400)
+                //     throw new Error("Failed to create the user")
+                // }
+            } catch (error) {
+                res.status(400)
+                throw new Error(error.message)
+            }
+})
+
+
 module.exports = {accessChat,fetchChats,createdGroupChat,
-    renameGroup,addToGroup,removeFromGroup}
+    renameGroup,addToGroup,removeFromGroup,fetchNotification}

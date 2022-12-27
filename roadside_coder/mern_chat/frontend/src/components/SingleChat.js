@@ -13,8 +13,8 @@ import { capitalizeFirst } from '../config/Functions'
 import { ArrowLeftShort } from "react-bootstrap-icons";
 
 
-// const ENDPOINT = "http://localhost:5000"; 
-const ENDPOINT = "https://fliob.herokuapp.com/"; 
+const ENDPOINT = "http://localhost:5000"; 
+// const ENDPOINT = "https://fliob.herokuapp.com/"; 
 var socket, selectedChatCompare;
 
 const SingleChat = ({fetchAgain,setFetchAgain}) => {
@@ -57,6 +57,32 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
     }
    }
 
+   const saveNotification = async () => {
+      //send the list on database
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          }
+        }
+        const data = await axios.post(`${baseUrl}/api/chat/fetchNotification`,{
+          messages:notification
+        },config)
+        console.log(data)
+      } catch (error) {
+        toast({
+          title: 'Error Occured!',
+          description:"Failed to save notification",
+          // description:error.response.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: "bottom"
+        })
+      }
+   }
+
    //start the socket here
    useEffect(() => {
     socket = io(ENDPOINT)
@@ -81,6 +107,8 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
         //notification array doesn't contain the message comming in
         if(!notification.includes(newMessageRecieved)){
           setNotification([newMessageRecieved,...notification])
+          saveNotification()
+          console.log('notification array')
           console.log(notification)
           //update list of chat
           setFetchAgain(!fetchAgain) 
@@ -89,6 +117,7 @@ const SingleChat = ({fetchAgain,setFetchAgain}) => {
         setMessages([...messages,newMessageRecieved])
       }
     })
+    // saveNotification()
    })//square brackets removed to update every time
    
 

@@ -1,6 +1,6 @@
 const express = require('express')
 const {accessChat,fetchChats,createdGroupChat,
-    renameGroup,addToGroup,removeFromGroup} = require('../controllers/chatControllers')
+    renameGroup,addToGroup,removeFromGroup, fetchNotification} = require('../controllers/chatControllers')
 const { protect } = require('../middlewares/authMiddleware')
 
 const router = express.Router()
@@ -14,7 +14,7 @@ router.route('/groupadd').put(protect,addToGroup)//Add someone to group
 router.route('/groupremove').put(protect,removeFromGroup)//remove someone or leave the group
 
 // for notification
-
+router.route('/fetchNotification').post(protect,fetchNotification)
 
 
 module.exports = router
